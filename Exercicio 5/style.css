@@ -16,7 +16,8 @@ body {
     margin: auto;
     display: flex;
     flex-wrap: wrap;
-}
+    perspective: 1000px;
+} /* perpectiva do usuario no eixo Z, quanto maior, maior o efeito da pespectiva */
 
 .card {
     height: calc( 33.333% - 10px);
@@ -26,6 +27,8 @@ body {
     box-shadow: 1px 1px 1px rgba(0,0,0,.3);
     cursor: pointer;
     transform: scale(1);
+    transform-style: preserve-3d; /* adiciona a perspectiva 3d, para que o elemento não fique achatada no plano */
+    transition: transform .9s; /* adiciona efeito de movimento ao flip do card */
 }
 
 .card:active {
@@ -41,5 +44,16 @@ body {
   position: absolute;
   border-radius: 5px;
   background: rgb(92, 187, 182);
+  backface-visibility: hidden; /* todo elemento tem uma frente e um verso (ao contrario, como um espelho.) essa propriedade retira o verso */
+}
+
+.card-front {
+    transform: rotateY(180deg); /* antes, o verso aparecia transparente, pois ambas as imagens tem position absolute, ao girar no eixo Y, elas ficaram com os versos virados */
+}
+
+/* flip card animation */
+
+.card.flip{
+    transform: rotateY(180deg);
 }
 
